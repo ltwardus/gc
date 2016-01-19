@@ -1,0 +1,7 @@
+Genetic Circlism - program that will recreate image with the circles with help of the genetic algorithm
+
+Building:
+Use cmake and then just "make".
+
+Usage:
+Go to the build directory and type "./gc" for help.
