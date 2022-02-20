@@ -98,12 +98,12 @@ void generate_end_evaluate_solution(
   for (auto& circle : circles) {
     cv::Mat temp = image.clone();
     temp = cv::Scalar();
-    cv::circle(temp, circle.center, circle.radius, circle.color, CV_FILLED);
+    cv::circle(temp, circle.center, circle.radius, circle.color, cv::FILLED);
 
     cv::addWeighted(temp, 0.5, image, 1, 0, image);
   }
 
-  cv::cvtColor(image, image_lab, CV_BGR2Lab);
+  cv::cvtColor(image, image_lab, cv::COLOR_BGR2Lab);
 
   distance = cv::norm(original_image_lab, image_lab);
 }
@@ -117,10 +117,10 @@ int main(int argc, char* argv[]) {
   const std::string kInputImageFilename = argv[1];
   const std::string kOutputImageFilename = argv[2];
 
-  const cv::Mat original_image = cv::imread(kInputImageFilename, CV_LOAD_IMAGE_COLOR);
+  const cv::Mat original_image = cv::imread(kInputImageFilename, cv::ImreadModes::IMREAD_COLOR);
   const cv::Mat original_image_lab = [&original_image]() {
     cv::Mat temp;
-    cv::cvtColor(original_image, temp, CV_BGR2Lab);
+    cv::cvtColor(original_image, temp, cv::COLOR_BGR2Lab);
     return temp;
   }();
 
@@ -132,7 +132,7 @@ int main(int argc, char* argv[]) {
   std::cout << "Press ESC to save output image and exit ..." << std::endl;
 
   const std::string kOriginalImageWindowName = "Original image - Press ESC to save output image and exit ...";
-  cv::namedWindow(kOriginalImageWindowName, CV_GUI_EXPANDED);
+  cv::namedWindow(kOriginalImageWindowName, cv::WINDOW_GUI_EXPANDED);
   cv::imshow(kOriginalImageWindowName, original_image);
 
   {
@@ -140,7 +140,7 @@ int main(int argc, char* argv[]) {
     output_image = cv::Scalar();
 
     const std::string kOutputImageWindowName = "Output image - Press ESC to save output image and exit ...";
-    cv::namedWindow(kOutputImageWindowName, CV_GUI_EXPANDED);
+    cv::namedWindow(kOutputImageWindowName, cv::WINDOW_GUI_EXPANDED);
     cv::imshow(kOutputImageWindowName, output_image);
 
     Circles best_circles;
